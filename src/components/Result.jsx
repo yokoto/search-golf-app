@@ -1,7 +1,21 @@
 import React from "react";
 import "./Common.css";
 
-const Result = ({ plans, planCount }) => {
+const Result = ({ plans, planCount, error }) => {
+  if (error) {
+    return (
+      <div className="wrapper">
+        <div className="ui negative message">
+          <i className="close icon"></i>
+          <div className="header">
+            エラーが発生しました。
+          </div>
+          検索条件を見直すか、管理者にお問い合わせください。
+        </div>
+      </div>
+    );
+  }
+
   if (!plans) {
     return <div></div>;
   }
