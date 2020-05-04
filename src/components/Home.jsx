@@ -14,16 +14,29 @@ registerLocale('ja', ja);
 
 class Home extends React.Component {
   state = {
-    date: addDays(new Date(), 14), budget: '12000', departure: '1', duration: '90'
+    date: addDays(new Date(), 14),
+    budget: '12000',
+    departure: '1',
+    duration: '90',
+    plans: [],
+    plansCount: 0
   }
 
   onFormSubmit = async (event) => {
     event.preventDefault();
 
     const response = await axios.get('https://l1kwik11ne.execute-api.ap-northeast-1.amazonaws.com/production/golf-courses', {
-      params: { date: format(this.state.date, 'yyyyMMdd'), budget: this.state.budget, departure: this.state.departure, duration: this.state.duration }
+      params: {
+        date: format(this.state.date, 'yyyyMMdd'),
+        budget: this.state.budget,
+        departure: this.state.departure,
+        duration: this.state.duration
+      }
     });
-    this.setState({ planCount: response.data.count, plans: response.data.plans })
+    this.setState({
+      planCount: response.data.count,
+      plans: response.data.plans
+    })
     {console.log(this.state.planCount)}
     {console.log(this.state.plans)}
   }
@@ -73,6 +86,7 @@ class Home extends React.Component {
           </form>
           <Result
             plans={this.state.plans}
+            planCount={this.state.planCount}
           />
         </div>
       </div>
